@@ -118,11 +118,23 @@ public class VisualStyles extends Section {
                 "Path="+getPath()+"\n"+
                 "ColorStyle="+colorStyle+"\n"+
                 "Size="+size+"\n"+
-                (getColorizationColor()==null?"":"ColorizationColor="+getColorizationColor()+"\n") +
+                (colorizationColorString()==null?"":"ColorizationColor="+colorizationColorString()+"\n") +
                 "Composition="+getComposition()+"\n"+
                 "Transparency="+getTransparency()+"\n";
         
         return res;
     }
     
+    private String colorizationColorString(){
+        String res = null;
+        if( getColorizationColor() != null ){
+            res = "0X";
+            // hay que buscar una solución para los 00
+            res += Integer.toHexString(getColorizationColor().getAlpha());
+            res += Integer.toHexString(getColorizationColor().getRed());
+            res += Integer.toHexString(getColorizationColor().getGreen());
+            res += Integer.toHexString(getColorizationColor().getBlue());
+        }
+        return res;
+    }
 }

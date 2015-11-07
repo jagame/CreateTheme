@@ -489,10 +489,13 @@
                 </Property>
               </Properties>
               <BindingProperties>
-                <BindingProperty name="text" source="Form" sourcePath="${themeFile.theme.iconos.empty}" target="txtNetwork" targetPath="text" updateStrategy="0" immediately="false">
+                <BindingProperty name="text" source="Form" sourcePath="${themeFile.theme.network.path}" target="txtNetwork" targetPath="text" updateStrategy="0" immediately="false">
                   <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
                 </BindingProperty>
               </BindingProperties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNetworkActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnNetwork">
               <Properties>
@@ -531,6 +534,11 @@
                   </Border>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="Form" sourcePath="${themeFile.theme.recyclebin.path}" target="txtRecycleBin" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
             </Component>
             <Component class="javax.swing.JButton" name="btnRecycleBin">
               <Properties>
@@ -569,6 +577,11 @@
                   </Border>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="Form" sourcePath="${themeFile.theme.computer.path}" target="txtComputer" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
             </Component>
             <Component class="javax.swing.JButton" name="btnComputer">
               <Properties>
@@ -607,6 +620,11 @@
                   </Border>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="Form" sourcePath="${themeFile.theme.documents.path}" target="txtDocuments" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
             </Component>
             <Component class="javax.swing.JButton" name="btnDocuments">
               <Properties>

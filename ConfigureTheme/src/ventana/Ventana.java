@@ -269,8 +269,14 @@ public class Ventana extends javax.swing.JFrame {
         txtNetwork.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         txtNetwork.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(130, 130, 130)));
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${themeFile.theme.iconos.empty}"), txtNetwork, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${themeFile.theme.network.path}"), txtNetwork, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
+
+        txtNetwork.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNetworkActionPerformed(evt);
+            }
+        });
 
         btnNetwork.setBackground(new java.awt.Color(200, 220, 255));
         btnNetwork.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -288,6 +294,9 @@ public class Ventana extends javax.swing.JFrame {
         txtRecycleBin.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         txtRecycleBin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(130, 130, 130)));
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${themeFile.theme.recyclebin.path}"), txtRecycleBin, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         btnRecycleBin.setBackground(new java.awt.Color(200, 220, 255));
         btnRecycleBin.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnRecycleBin.setText("...");
@@ -304,6 +313,9 @@ public class Ventana extends javax.swing.JFrame {
         txtComputer.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         txtComputer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(130, 130, 130)));
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${themeFile.theme.computer.path}"), txtComputer, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         btnComputer.setBackground(new java.awt.Color(200, 220, 255));
         btnComputer.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnComputer.setText("...");
@@ -319,6 +331,9 @@ public class Ventana extends javax.swing.JFrame {
         txtDocuments.setEditable(false);
         txtDocuments.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         txtDocuments.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(130, 130, 130)));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${themeFile.theme.documents.path}"), txtDocuments, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         btnDocuments.setBackground(new java.awt.Color(200, 220, 255));
         btnDocuments.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -814,12 +829,21 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAbrirActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        try{
-            ThemeFileDao.writeThemeFile(themeFile);
-        }catch(IOException e){
-            JOptionPane.showConfirmDialog(this, "Error a la hora de guardar el fichero de tema", "Error de Escritura", JOptionPane.WARNING_MESSAGE);
+        ExtendedFileChooser jfc = getThemeFileChooser();
+        
+        if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try{
+                themeFile.setPath(jfc.getSelectedFile().getAbsolutePath());
+                ThemeFileDao.writeThemeFile(themeFile);
+            }catch(IOException e){
+                JOptionPane.showConfirmDialog(this, "Error a la hora de guardar el fichero de tema", "Error de Escritura", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNetworkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNetworkActionPerformed
 
     private ExtendedFileChooser getIconsFileChooser(){
         ExtendedFileChooser fc = new ExtendedFileChooser();

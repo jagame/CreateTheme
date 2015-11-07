@@ -48,23 +48,24 @@ public class ThemeFileDao {
                 FileReader fr = new FileReader(path);
                 BufferedReader br = new BufferedReader( fr )
                 ){
-            String line;
+            String line = br.readLine();
             Theme theme = null;
-            ControlPanelDesktop cpd = null;
-            VisualStyles visualStyle = null;
+            ControlPanelDesktop cpd = new ControlPanelDesktop("", false, ControlPanelDesktop.WallpaperStyle.CENTERED);
+            VisualStyles visualStyle = new VisualStyles();
             Slideshow slideshow = null;
-            while(  (line = br.readLine()) != null ){
-                // hay que repensarse esta parte, este primer while puede ser erroneo
-//                while( ! line.matches("\\[.+\\]")  )
-//                    line = br.readLine();
+            while( line != null ){
+                // El problema radica en que todo método que avance en las lineas de br deve devolver la línea por donde se ha quedado,
+                // aun cuando este diseñado para devolver otro tipo de objeto.
                 if( line.equalsIgnoreCase("[Theme]") )
-                    theme = getTheme(br);
+                    line = getTheme(br, (theme=new Theme()));
                 else if( line.equalsIgnoreCase("[Control Panel\\Desktop]") )
-                    cpd = getControlPanelDesktop(br);
+                    line = getControlPanelDesktop(br, cpd);
                 else if( line.equalsIgnoreCase("[VisualStyles]") )
-                    visualStyle = getVisualStyle(br);
+                    line = getVisualStyle(br, visualStyle);
                 else if( line.equalsIgnoreCase("[Slideshow]") )
-                    slideshow = getSlideshow(br);
+                    line = getSlideshow(br, (slideshow=new Slideshow(0, false, "")));
+                else
+                    line = br.readLine();
             }
             
             res = new ThemeFile(path, theme, cpd, slideshow, visualStyle);
@@ -74,7 +75,7 @@ public class ThemeFileDao {
         return res;
     }
     
-    private static Slideshow getSlideshow(BufferedReader br)throws IOException{
+    private static String getSlideshow(BufferedReader br, Slideshow sli)throws IOException{
         String line = br.readLine();
         long interval = 0;
         boolean shuffle = false;
@@ -93,11 +94,14 @@ public class ThemeFileDao {
             
             line = br.readLine();
         }
+        sli.setInterval(interval);
+        sli.setShuffle(shuffle);
+        sli.setImagesRootPath(imagesRootPath);
         
-        return new Slideshow(interval, shuffle, imagesRootPath);
+        return line;
     }
     
-    private static VisualStyles getVisualStyle(BufferedReader br)throws IOException{
+    private static String getVisualStyle(BufferedReader br, VisualStyles vs)throws IOException{
         String line = br.readLine();
         String path = null;
         Color colorizationColor = null;
@@ -111,10 +115,11 @@ public class ThemeFileDao {
             else if( line.startsWith("ColorizationColor") ){
                 String tmp = line.split("=")[1];
                 colorizationColor = new Color(
-                        Byte.parseByte(tmp.substring(4, 6)),
-                        Byte.parseByte(tmp.substring(6, 8)),
-                        Byte.parseByte(tmp.substring(8, 10)),
-                        Byte.parseByte(tmp.substring(2, 4) ));
+                        // En el fichero de texto es hexadecimal, por lo que habrá que convertirlo a decimal
+                        Integer.parseInt(tmp.substring(4, 6),16),
+                        Integer.parseInt(tmp.substring(6, 8),16),
+                        Integer.parseInt(tmp.substring(8, 10),16),
+                        Integer.parseInt(tmp.substring(2, 4),16));
             }
             
             else if( line.startsWith("Composition") )
@@ -126,11 +131,14 @@ public class ThemeFileDao {
             
             line = br.readLine();
         }
-        
-        return new VisualStyles(path, colorizationColor, composition, transparency);
+        vs.setPath(path);
+        vs.setColorizationColor(colorizationColor);
+        vs.setComposition(composition);
+        vs.setTransparency(transparency);
+        return line;
     }
     
-    private static ControlPanelDesktop getControlPanelDesktop( BufferedReader br )throws IOException{
+    private static String getControlPanelDesktop( BufferedReader br, ControlPanelDesktop cpd )throws IOException{
         String line = br.readLine();
         String wallpaper = null;
         boolean tileWallpaper = false;
@@ -151,10 +159,13 @@ public class ThemeFileDao {
             
             line = br.readLine();
         }
-        return new ControlPanelDesktop(wallpaper, tileWallpaper, wallpaperStyle);
+        cpd.setWallpaper(wallpaper);
+        cpd.setTileWallpaper(tileWallpaper);
+        cpd.setWallpaperStyle(wallpaperStyle);
+        return line;
     }
     
-    private static Theme getTheme( BufferedReader br ) throws IOException{
+    private static String getTheme( BufferedReader br, Theme theme ) throws IOException{
         String line = br.readLine();
         String displayName = null;
         String brandImage = null;
@@ -168,13 +179,15 @@ public class ThemeFileDao {
                 brandImage = line.split("=")[1];
                 line = br.readLine();
             }
-            else if( line.matches("\\[CLSID\\.+") )
+            else if( line.matches("\\[CLSID.+") )
                 line = readIconSection(icons, line, br);
             else
                 line = br.readLine();
         }
-        
-        return new Theme(displayName, brandImage, icons);
+        theme.setDisplayName(displayName);
+        theme.setBrandImage(brandImage);
+        theme.setIcons(icons);
+        return line;
     }
     
     /**
@@ -187,7 +200,7 @@ public class ThemeFileDao {
      */
     private static String readIconSection( Map<Folder,String> icons, String line, BufferedReader br ) throws IOException{
         Folder folder = Folder.stringToFolder(line);
-        br.readLine();
+        line = br.readLine();
         while( ! line.matches("\\[.+\\]") ){
             if( line.startsWith("DefaultValue") )
                 icons.put( folder, line.split("=")[1] );
