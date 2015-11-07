@@ -79,7 +79,7 @@ public class ThemeFileDao {
         long interval = 0;
         boolean shuffle = false;
         String imagesRootPath = null;
-        while( ! line.matches("\\[.+\\]") ){
+        while( line!=null && ! line.matches("\\[.+\\]") ){
             if( line.startsWith("Interval") )
                 interval = Long.parseLong( line.split("=")[1] );
             
@@ -101,8 +101,8 @@ public class ThemeFileDao {
         String line = br.readLine();
         String path = null;
         Color colorizationColor = null;
-        Boolean composition = null;
-        Boolean transparency = null;
+        boolean composition = false;
+        boolean transparency = false;
         
         while( ! line.matches("\\[.+\\]") ){
             if( line.startsWith("Path") )

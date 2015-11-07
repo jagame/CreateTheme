@@ -937,7 +937,7 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     public final static String PROP_THEMEFILE="themeFile";
-    private ThemeFile themeFile;
+    private ThemeFile themeFile = new ThemeFile();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelColorizationColor;
     private javax.swing.ButtonGroup bgWallpaperStyle;

@@ -23,8 +23,8 @@ public class VisualStyles extends Section {
     private final String colorStyle = "NormalColor";
     private final String size = "NormalSize";
     private Color colorizationColor;
-    private Boolean composition;
-    private Boolean transparency;
+    private boolean composition;
+    private boolean transparency;
     
     public final static String PROP_PATH="path";
     public final static String PROP_COLORSTYLE="colorStyle";
@@ -38,10 +38,10 @@ public class VisualStyles extends Section {
     }
     
     public VisualStyles( String path ){
-        this(path, null, null, null);
+        this(path, null, false, false);
     }
     
-    public VisualStyles( String path, Color color, Boolean composition, Boolean transparency ){
+    public VisualStyles( String path, Color color, boolean composition, boolean transparency ){
         this.path = path;
         this.colorizationColor = color;
         this.composition = composition;
@@ -83,15 +83,15 @@ public class VisualStyles extends Section {
      * Return if have transparency
      * @return 
      */
-    public Boolean getTransparency() {
+    public boolean getTransparency() {
         return transparency;
     }
     /**
      * Set if have transparency
      * @param transparency 
      */
-    public void setTransparency(Boolean transparency) {
-        Boolean old = this.transparency;
+    public void setTransparency(boolean transparency) {
+        boolean old = this.transparency;
         this.transparency = transparency;
         pcs.firePropertyChange(PROP_TRANSPARENCY, old, transparency);
     }
@@ -99,15 +99,15 @@ public class VisualStyles extends Section {
      * Return composition
      * @return 
      */
-    public Boolean getComposition() {
+    public boolean getComposition() {
         return composition;
     }
     /**
      * Set composition
      * @param composition 
      */
-    public void setComposition(Boolean composition) {
-        Boolean old = this.composition;
+    public void setComposition(boolean composition) {
+        boolean old = this.composition;
         this.composition = composition;
         pcs.firePropertyChange(PROP_COMPOSITION, old, composition);
     }
@@ -118,9 +118,9 @@ public class VisualStyles extends Section {
                 "Path="+getPath()+"\n"+
                 "ColorStyle="+colorStyle+"\n"+
                 "Size="+size+"\n"+
-                (getColorizationColor()==null?"":"ColorizationColor="+getColorizationColor()+"\n")+
-                (getComposition()==null?"":"Composition="+getComposition()+"\n")+
-                (getTransparency()==null?"":"Transparency="+getTransparency()+"\n" );
+                (getColorizationColor()==null?"":"ColorizationColor="+getColorizationColor()+"\n") +
+                "Composition="+getComposition()+"\n"+
+                "Transparency="+getTransparency()+"\n";
         
         return res;
     }
