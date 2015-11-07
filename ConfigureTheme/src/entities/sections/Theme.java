@@ -9,6 +9,7 @@ import entities.interfaces.Section;
 import entities.utils.Folder;
 import java.util.HashMap;
 import java.util.Map;
+import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
  *
@@ -20,7 +21,15 @@ public class Theme extends Section{
     
     private String displayName;
     private String brandImage;
-    private Map<Folder,String> iconos;
+    /*
+    Es necesario cambiar el Map de iconos por variables separadas para poder hacer el binding
+    */
+    private final Map<Folder,String> iconos = ObservableCollections.observableMap(new HashMap(){{
+            put( Folder.COMPUTER, null );
+            put( Folder.DOCUMENTS, null);
+            put( Folder.NETWORK, null);
+            put( Folder.RECYCLEBIN, null);
+        }});;
     
     public final static String PROP_DISPLAYNAME="displayName";
     public final static String PROP_BRANDIMAGE="brandImage";
@@ -28,13 +37,12 @@ public class Theme extends Section{
     
     public Theme(){
         this.displayName = "Default";
-        this.iconos = new HashMap<>();
     }
     
     public Theme(String displayName, String brandImagePath, Map<Folder,String> iconos){
         this.displayName = displayName;
         this.brandImage = brandImagePath;
-        this.iconos = iconos;
+        setIconos(iconos);
     }
 
     /**
@@ -85,8 +93,8 @@ public class Theme extends Section{
      * Set the specifies custom icons for desktop features
      * @param iconos 
      */
-    public void setIconos(Map<Folder, String> iconos) {
-        this.iconos = iconos;
+    public final void setIconos(Map<Folder, String> iconos) {
+        this.iconos.putAll(iconos);
     }
     
     public void addIcono(Folder folder, String rutaIcono){
