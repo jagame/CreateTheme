@@ -7,6 +7,9 @@ package entities.sections;
 
 import entities.interfaces.Section;
 import java.awt.Color;
+import java.text.DecimalFormat;
+import java.text.Format;
+import java.util.Formatter;
 
 /**
  *
@@ -130,10 +133,10 @@ public class VisualStyles extends Section {
         if( getColorizationColor() != null ){
             res = "0X";
             // hay que buscar una solución para los 00
-            res += Integer.toHexString(getColorizationColor().getAlpha());
-            res += Integer.toHexString(getColorizationColor().getRed());
-            res += Integer.toHexString(getColorizationColor().getGreen());
-            res += Integer.toHexString(getColorizationColor().getBlue());
+            res += String.format("%02x",getColorizationColor().getAlpha());
+            res += String.format("%02x",getColorizationColor().getRed());
+            res += String.format("%02x",getColorizationColor().getGreen());
+            res += String.format("%02x",getColorizationColor().getBlue() );
         }
         return res;
     }
