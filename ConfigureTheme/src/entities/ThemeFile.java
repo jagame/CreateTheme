@@ -32,6 +32,10 @@ public class ThemeFile extends Section{
     public final static String PROP_SLIDESHOW = "slideshow";
     public final static String PROP_VISUALSTYLES = "visualStyles";
 
+    public ThemeFile(){
+        this(null, null, null, null, null);
+    }
+    
     public ThemeFile( VisualStyles vs, ControlPanelDesktop cpd ){
         this(null, null, cpd, null, vs);
     }

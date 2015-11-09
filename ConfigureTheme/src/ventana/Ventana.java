@@ -14,6 +14,7 @@ import entities.utils.FileFilterObject;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
@@ -80,7 +81,6 @@ public class Ventana extends javax.swing.JFrame {
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        bgWallpaperStyle = new javax.swing.ButtonGroup();
         jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         txtBrandImage = new javax.swing.JTextField();
@@ -118,11 +118,7 @@ public class Ventana extends javax.swing.JFrame {
         txtWallpaper = new javax.swing.JTextField();
         btnWallpaper = new javax.swing.JButton();
         cbTileWallpaper = new javax.swing.JCheckBox();
-        jPanel1 = new javax.swing.JPanel();
-        rbResized = new javax.swing.JRadioButton();
-        rbCentered = new javax.swing.JRadioButton();
-        rbTiled = new javax.swing.JRadioButton();
-        rbStretched = new javax.swing.JRadioButton();
+        cbWallpaperStyle = new javax.swing.JComboBox();
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -273,6 +269,15 @@ public class Ventana extends javax.swing.JFrame {
         txtNetwork.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         txtNetwork.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(130, 130, 130)));
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${themeFile.theme.network.path}"), txtNetwork, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        txtNetwork.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNetworkActionPerformed(evt);
+            }
+        });
+
         btnNetwork.setBackground(new java.awt.Color(200, 220, 255));
         btnNetwork.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnNetwork.setText("...");
@@ -288,6 +293,9 @@ public class Ventana extends javax.swing.JFrame {
         txtRecycleBin.setEditable(false);
         txtRecycleBin.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         txtRecycleBin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(130, 130, 130)));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${themeFile.theme.recyclebin.path}"), txtRecycleBin, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         btnRecycleBin.setBackground(new java.awt.Color(200, 220, 255));
         btnRecycleBin.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -305,6 +313,9 @@ public class Ventana extends javax.swing.JFrame {
         txtComputer.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         txtComputer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(130, 130, 130)));
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${themeFile.theme.computer.path}"), txtComputer, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         btnComputer.setBackground(new java.awt.Color(200, 220, 255));
         btnComputer.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnComputer.setText("...");
@@ -320,6 +331,9 @@ public class Ventana extends javax.swing.JFrame {
         txtDocuments.setEditable(false);
         txtDocuments.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         txtDocuments.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(130, 130, 130)));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${themeFile.theme.documents.path}"), txtDocuments, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         btnDocuments.setBackground(new java.awt.Color(200, 220, 255));
         btnDocuments.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -416,6 +430,11 @@ public class Ventana extends javax.swing.JFrame {
         btnAplicar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnAplicar.setForeground(new java.awt.Color(70, 70, 70));
         btnAplicar.setText("Aplicar");
+        btnAplicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAplicarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -485,55 +504,13 @@ public class Ventana extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${themeFile.controlPanelDesktop.tileWallpaper}"), cbTileWallpaper, org.jdesktop.beansbinding.BeanProperty.create("selected"));
         bindingGroup.addBinding(binding);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Wallpaper Style", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 12))); // NOI18N
+        cbWallpaperStyle.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        rbResized.setBackground(new java.awt.Color(255, 255, 255));
-        bgWallpaperStyle.add(rbResized);
-        rbResized.setText("Resized");
-
-        rbCentered.setBackground(new java.awt.Color(255, 255, 255));
-        bgWallpaperStyle.add(rbCentered);
-        rbCentered.setText("Centered");
-        rbCentered.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbCenteredActionPerformed(evt);
-            }
-        });
-
-        rbTiled.setBackground(new java.awt.Color(255, 255, 255));
-        bgWallpaperStyle.add(rbTiled);
-        rbTiled.setText("Tiled");
-
-        rbStretched.setBackground(new java.awt.Color(255, 255, 255));
-        bgWallpaperStyle.add(rbStretched);
-        rbStretched.setText("Stretched");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rbResized)
-                    .addComponent(rbStretched)
-                    .addComponent(rbTiled)
-                    .addComponent(rbCentered))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(rbCentered)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbTiled)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbStretched)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbResized)
-                .addGap(0, 8, Short.MAX_VALUE))
-        );
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${wallpaperStyles}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, cbWallpaperStyle);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${themeFile.controlPanelDesktop.wallpaperStyle}"), cbWallpaperStyle, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -549,11 +526,13 @@ public class Ventana extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnWallpaper, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbTileWallpaper, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cbWallpaperStyle, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbTileWallpaper, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -566,10 +545,11 @@ public class Ventana extends javax.swing.JFrame {
                     .addComponent(btnWallpaper, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(cbTileWallpaper))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(cbWallpaperStyle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         tpWallpaper.addTab("Wallpaper", jPanel5);
@@ -765,12 +745,8 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDisplayNameActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        //themeFile = new ThemeFile(new VisualStyles(), new ControlPanelDesktop(null, false, ControlPanelDesktop.WallpaperStyle.CENTERED));
+        System.exit(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void rbCenteredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCenteredActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbCenteredActionPerformed
 
     private void txtIntervalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIntervalActionPerformed
         // TODO add your handling code here:
@@ -848,7 +824,7 @@ public class Ventana extends javax.swing.JFrame {
         
         ExtendedFileChooser jfc = getThemeFileChooser();
         
-        if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+        if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try{
                 setThemeFile( ThemeFileDao.readThemeFile(jfc.getSelectedFile().getAbsolutePath()) );
             }catch( IOException e ){
@@ -858,12 +834,29 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAbrirActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        try{
-            ThemeFileDao.writeThemeFile(themeFile);
-        }catch(IOException e){
-            JOptionPane.showConfirmDialog(this, "Error a la hora de guardar el fichero de tema", "Error de Escritura", JOptionPane.WARNING_MESSAGE);
+        ExtendedFileChooser jfc = getThemeFileChooser();
+        
+        if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try{
+                themeFile.setPath(jfc.getSelectedFile().getAbsolutePath());
+                ThemeFileDao.writeThemeFile(themeFile);
+            }catch(IOException e){
+                JOptionPane.showMessageDialog(this, "Error a la hora de guardar el fichero de tema");
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNetworkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNetworkActionPerformed
+
+    private void btnAplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarActionPerformed
+        try{
+            Runtime.getRuntime().exec("comando a aplicar");
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(this,"Error al aplicar la configuración del archivo de tema cargado");
+        }
+    }//GEN-LAST:event_btnAplicarActionPerformed
 
     private ExtendedFileChooser getIconsFileChooser(){
         ExtendedFileChooser fc = new ExtendedFileChooser();
@@ -935,12 +928,22 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
     }
+    
+    public List<ControlPanelDesktop.WallpaperStyle> getWallpaperStyles(){
+        return WALLPAPER_STYLES;
+    }
 
     public final static String PROP_THEMEFILE="themeFile";
-    private ThemeFile themeFile;
+    
+    private final static List<ControlPanelDesktop.WallpaperStyle> WALLPAPER_STYLES = new ArrayList(){
+        {
+            add(null);
+            addAll(Arrays.asList(ControlPanelDesktop.WallpaperStyle.values()));
+        }
+    };
+    private ThemeFile themeFile = new ThemeFile();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelColorizationColor;
-    private javax.swing.ButtonGroup bgWallpaperStyle;
     private javax.swing.JButton btnAbrir;
     private javax.swing.JButton btnAplicar;
     private javax.swing.JButton btnBrandImage;
@@ -956,6 +959,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JCheckBox cbShuffle;
     private javax.swing.JCheckBox cbTileWallpaper;
     private javax.swing.JCheckBox cbTransparency;
+    private javax.swing.JComboBox cbWallpaperStyle;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -971,16 +975,11 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JRadioButton rbCentered;
-    private javax.swing.JRadioButton rbResized;
-    private javax.swing.JRadioButton rbStretched;
-    private javax.swing.JRadioButton rbTiled;
     private javax.swing.JTabbedPane tpWallpaper;
     private javax.swing.JTextField txtBrandImage;
     private javax.swing.JTextField txtComputer;

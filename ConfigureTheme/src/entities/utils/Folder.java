@@ -26,18 +26,18 @@ public enum Folder{
     }
     
     public static Folder stringToFolder(String str){
-        switch(str){
-            case "{20D04FE0-3AEA-1069-A2D8-08002B30309D}":
-                return COMPUTER;
-            case "{59031A47-3F72-44A7-89C5-5595FE6B30EE}":
-                return DOCUMENTS;
-            case "{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}":
-                return NETWORK;
-            case "{645FF040-5081-101B-9F08-00AA002F954E}":
-                return RECYCLEBIN;
-            default:
-                return null;
-        }
+        Folder res = null;
+        
+        if(str.equalsIgnoreCase(COMPUTER.getValue()))
+            res = COMPUTER;
+        else if(str.equalsIgnoreCase(DOCUMENTS.getValue()))
+            res = DOCUMENTS;
+        else if(str.equalsIgnoreCase(NETWORK.getValue()))
+            res = NETWORK;
+        else if(str.equalsIgnoreCase(RECYCLEBIN.getValue()))
+            res = RECYCLEBIN;
+        
+        return res;
     }
     
 }
