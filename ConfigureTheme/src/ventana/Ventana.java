@@ -430,6 +430,11 @@ public class Ventana extends javax.swing.JFrame {
         btnAplicar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnAplicar.setForeground(new java.awt.Color(70, 70, 70));
         btnAplicar.setText("Aplicar");
+        btnAplicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAplicarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -740,7 +745,7 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDisplayNameActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        //themeFile = new ThemeFile(new VisualStyles(), new ControlPanelDesktop(null, false, ControlPanelDesktop.WallpaperStyle.CENTERED));
+        System.exit(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtIntervalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIntervalActionPerformed
@@ -836,7 +841,7 @@ public class Ventana extends javax.swing.JFrame {
                 themeFile.setPath(jfc.getSelectedFile().getAbsolutePath());
                 ThemeFileDao.writeThemeFile(themeFile);
             }catch(IOException e){
-                JOptionPane.showConfirmDialog(this, "Error a la hora de guardar el fichero de tema", "Error de Escritura", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error a la hora de guardar el fichero de tema");
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -844,6 +849,14 @@ public class Ventana extends javax.swing.JFrame {
     private void txtNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNetworkActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNetworkActionPerformed
+
+    private void btnAplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarActionPerformed
+        try{
+            Runtime.getRuntime().exec("comando a aplicar");
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(this,"Error al aplicar la configuración del archivo de tema cargado");
+        }
+    }//GEN-LAST:event_btnAplicarActionPerformed
 
     private ExtendedFileChooser getIconsFileChooser(){
         ExtendedFileChooser fc = new ExtendedFileChooser();
