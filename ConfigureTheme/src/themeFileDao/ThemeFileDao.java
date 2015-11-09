@@ -31,7 +31,9 @@ public class ThemeFileDao {
     
     public static void writeThemeFile( ThemeFile tf ) throws FileNotFoundException{
         try( PrintWriter pw = new PrintWriter( new File( tf.getPath() ) ) ){
-            pw.print(tf);
+            String themeFile[] = tf.toString().split("\n");
+            for( String line : themeFile )
+                pw.println(line);
         }
     }
     

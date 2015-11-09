@@ -145,10 +145,10 @@ public class Theme extends Section{
         String res = getSectionName()+"\n"+
                 (getBrandImage()==null?"":"BrandImage="+getBrandImage()+"\n")+
                 (getDisplayName()==null?"":"DisplayName="+getDisplayName()+"\n")+
-                (getComputer()==null?"":getComputer()+"\n")+
-                (getDocuments()==null?"":getDocuments()+"\n")+
-                (getNetwork()==null?"":getNetwork()+"\n")+
-                (getRecyclebin()==null?"":getRecyclebin()+"\n")
+                (getComputer().getPath()==null?"":getComputer()+"\n")+
+                (getDocuments().getPath()==null?"":getDocuments()+"\n")+
+                (getNetwork().getPath()==null?"":getNetwork()+"\n")+
+                (getRecyclebin().getPath()==null?"":getRecyclebin()+"\n")
                 ;
         
         return res;
