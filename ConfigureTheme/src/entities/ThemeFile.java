@@ -23,7 +23,7 @@ public class ThemeFile extends Section{
     private Slideshow slideshow;
     private VisualStyles visualStyles;
     private final static String MTSM =
-            "[MasterTheSelector]\n" +
+            "[MasterThemeSelector]\n" +
             "MTSM=DABJDKT";
     
     public final static String PROP_PATH = "path";
